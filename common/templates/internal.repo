@@ -1,0 +1,7 @@
+[{{ repo['name'] }}]
+name={{ repo['name'] }}
+baseurl={{ repo['baseurl'] }}
+enabled={{ repo['enabled'] }}
+gpgcheck={{ repo['gpgcheck'] }}
+gpgkey={{ repo['gpgkey'] }}
+sslcacert={{ ca_file }}

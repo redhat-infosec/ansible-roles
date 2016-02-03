@@ -1,0 +1,8 @@
+---
+# tasks file for common
+
+- name: install internal CA certificate
+  copy: src=cacert.pem dest={{ ca_file }}
+
+- name: configure internal repository
+  template: src=internal.repo dest=/etc/yum.repos.d/internal.repo
