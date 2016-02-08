@@ -1,2 +1,5 @@
 ---
 # handlers file for common
+
+- name: update trusted ca
+  shell: /bin/update-ca-trust
