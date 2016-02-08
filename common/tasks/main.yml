@@ -6,13 +6,13 @@
 
 - name: install internal CA certificate
   copy:
-    src: {{ item }}
+    src: "{{ item }}"
     dest: /etc/pki/ca-trust/source/anchors
     owner: root
     group: root
     mode: 0644
   with_fileglob:
-    - files/ca/*
+    - ca/*
   notify:
     - update trusted ca
 

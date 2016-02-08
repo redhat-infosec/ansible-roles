@@ -20,10 +20,6 @@ repo:
   gpgcheck  - Whether to check GPG signatures
   gpgkey    - Path to GPG public key
 
-CA variables:
-
-ca_file  - Path to file containing internal CA certificate
-
 Dependencies
 ------------
 
