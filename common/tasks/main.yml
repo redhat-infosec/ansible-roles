@@ -18,3 +18,13 @@
 
 - name: configure internal repository
   template: src=internal.repo dest=/etc/yum.repos.d/internal.repo
+
+- name: install katello RPM containing satellite server CA
+  yum: name=http://{{ satellite['server_hostname'] }}/pub/katello-ca-consumer-latest.noarch.rpm state=present
+
+- name: register with internal satellite server
+  redhat_subscription:
+    state: present
+    org_id: "{{ satellite['org_id'] }}"
+    activationkey: "{{ satellite['activationkey'] }}"
+    server_hostname: https://{{ satellite['server_hostname'] }}
