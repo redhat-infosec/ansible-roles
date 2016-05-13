@@ -1,0 +1,12 @@
+---
+- name: create bro node configuration
+  template: src=node.j2 dest=/opt/bro/etc/node.cfg
+  notify: deploy bro configuration
+
+- name: copy main configuration file
+  template: src=local.bro.j2 dest=/opt/bro/share/bro/site/local.bro
+
+- name: copy custom scripts
+  copy: src=files/{{ item }} dest=/opt/bro/share/bro/site/{{ item }}
+  with_items: "{{ custom_scripts }}"
+  notify: deploy bro configuration

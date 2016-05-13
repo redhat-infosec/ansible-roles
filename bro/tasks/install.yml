@@ -1,0 +1,11 @@
+---
+# installation tasks for bro
+
+- name: install bro YUM repo
+  copy: src=bro.repo dest=/etc/yum.repos.d/bro.repo
+
+- name: install bro RPM
+  yum: name=bro state=present
+
+- name: install initial configuration
+  command: /opt/bro/bin/broctl install
