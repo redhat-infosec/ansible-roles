@@ -1,0 +1,11 @@
+---
+
+#- name: transfer Bro intel data files
+#  synchronize: src=/opt/critical-stack/frameworks/intel dest=/opt/critical-stack/frameworks/intel
+
+- name: Install critical-stack RPM  # TODO: pull package into repo
+  yum: pkg=https://intel.criticalstack.com/client/critical-stack-intel-amd64.rpm state=present
+
+- name: Update Critical Stack feed
+  command: /usr/bin/critical-stack-intel --api-key={{ criticalstack_api_key }} pull
+  when: criticalstack_api_key is defined
