@@ -1,10 +1,23 @@
 ---
 - name: create bro node configuration
-  template: src=node.j2 dest=/opt/bro/etc/node.cfg
-  notify: deploy bro configuration
+  template: src=node.j2 dest=/opt/bro/etc/node.cfg.tmp
+  register: node_cfg
+  notify:
+    - deploy bro configuration
+
+- debug: var=node_cfg
+
+- name: stop bro
+  command: /opt/bro/bin/broctl stop
+  when: node_cfg.changed
+
+- name: move node configuration file in place
+  command: cp /opt/bro/etc/node.cfg.tmp /opt/bro/etc/node.cfg
+  when: node_cfg.changed
 
 - name: copy main configuration file
   template: src=local.bro.j2 dest=/opt/bro/share/bro/site/local.bro
+  notify: deploy bro configuration
 
 - name: copy custom scripts
   copy: src=files/{{ item }} dest=/opt/bro/share/bro/site/{{ item }}

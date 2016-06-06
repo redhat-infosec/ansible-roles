@@ -1,37 +1,25 @@
-# Example BroControl node configuration.
-#
-# This example has a standalone node ready to go except for possibly changing
-# the sniffing interface.
+{% if bro_procs is defined %}
 
-# This is a complete standalone configuration.  Most likely you will
-# only need to change the interface.
+[manager]
+type=manager
+host=127.0.0.1
+
+[proxy-1]
+type=proxy
+host=127.0.0.1
+
+[worker-1]
+type=worker
+host=127.0.0.1
+interface={{ capture_interface }}
+lb_method=pf_ring
+lb_procs={{ bro_procs }}
+
+{% else %}
+
 [bro]
 type=standalone
 host=localhost
 interface={{ capture_interface }}
 
-## Below is an example clustered configuration. If you use this,
-## remove the [bro] node above.
-
-#[manager]
-#type=manager
-#host=host1
-#
-#[proxy-1]
-#type=proxy
-#host=host1
-#
-#[worker-1]
-#type=worker
-#host=host2
-#interface=eth0
-#
-#[worker-2]
-#type=worker
-#host=host3
-#interface=eth0
-#
-#[worker-3]
-#type=worker
-#host=host4
-#interface=eth0
+{% endif %}
