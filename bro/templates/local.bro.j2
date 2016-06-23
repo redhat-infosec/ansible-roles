@@ -89,6 +89,10 @@
 # this adds two VLAN fields to the conn.log file.
 # @load policy/protocols/conn/vlan-logging
 
+# Load capture loss script
+@load policy/misc/capture-loss
+redef CaptureLoss::watch_interval = {{ capture_loss_watch_interval }};
+
 # Load custom scripts
 {% for script in custom_scripts %}
 @load {{ script }}
